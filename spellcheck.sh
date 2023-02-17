@@ -1,6 +1,7 @@
 #!/bin/sh
 #
 # Spell check a leanpub book git repository using aspell
+# and output the diff
 #
 # Filter out leanpub directives. Uses the book directory
 # to store aspell dictionaries and configuration so that they
@@ -64,4 +65,3 @@ for file in `grep -v '^#' $dir/Book.txt`; do
 done
 
 rm $diff
-

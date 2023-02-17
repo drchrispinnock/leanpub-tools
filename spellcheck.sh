@@ -19,7 +19,6 @@ if [ ! -f "$dir/Book.txt" ]; then
 fi
 
 
-tmpfile=`mktemp /tmp/spellingoutput.XXXXXX`
 diff=`mktemp /tmp/spellingdiff.XXXXXX`
 
 for file in `grep -v '^#' $dir/Book.txt`; do
@@ -27,9 +26,9 @@ for file in `grep -v '^#' $dir/Book.txt`; do
 	aspellnew=`mktemp /tmp/aspell.new.XXXXXX`
 
 	if [ ! -f "$dir/$file" ]; then
-		echo "$file not found" >> $tmpfile
-		echo "" >> $tmpfile
-                echo "=================" >> $tmpfile
+		echo "$file not found" 
+		echo "" 
+                echo "================="
 		continue
 	fi
 
@@ -40,15 +39,14 @@ for file in `grep -v '^#' $dir/Book.txt`; do
 
 	diff -u $aspellfile $aspellnew >> $diff
 	if [ $? != "0" ]; then
-		echo "$file" >> $tmpfile	
-		cat $diff >> $tmpfile
-		echo "" >> $tmpfile
-		echo "=================" >> $tmpfile
+		echo "$file" 
+		cat $diff 
+		echo "" 
+		echo "================="
 	fi
 	rm $aspellfile $aspellnew
 
 done
 
-cat $tmpfile
-rm $tmpfile
+rm $diff
 
